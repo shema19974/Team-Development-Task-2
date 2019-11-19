@@ -20,7 +20,7 @@ class User < ApplicationRecord
       user.save!
       AssignMailer.assign_mail(user.email, user.password).deliver
     end
-    user
+    userr
   end
 
   def self.generate_password
