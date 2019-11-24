@@ -32,10 +32,8 @@ class TeamsController < ApplicationController
   def update
     if params[:owner_id]
       @team.update(owner_id: params[:owner_id])
-      @team.assigns.each do |assign|
-        AssignMailer.assign_mail(assign.user.email,assign.user.password).deliver
-        end
-      redirect_to @team, notice: 'Team leader changed'
+        ContactMailer.contact_mail(@team.owner.email,@team.owner.password).deliver
+      redirect_to @team, notice: 'You have been changed to a team leader'
     elsif @team.update(team_params)
         redirect_to @team, notice: I18n.t('views.messages.update_team')
       else
